@@ -10,6 +10,7 @@ mongoose.connect('mongodb://blog:asd123@ds163781.mlab.com:63781/blog', (err, res
   console.log('connect database');
 })
 // config[process.env.DB]
+const index = require('./routes/index');
 const article = require('./routes/article')
 const author  = require('./routes/author')
 
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use('/',index)
 app.use('/articles', article)
 app.use('/authors', author)
 

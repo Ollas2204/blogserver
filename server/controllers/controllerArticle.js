@@ -1,21 +1,18 @@
 'use strict'
 const Article = require('../models/Article');
 
-module.exports = class ControllerArticle {
-  constructor() {
+module.exports = {
 
-  }
-
-  static findAll (req, res) {
+  findAll (req, res) {
     Article.find().populate('authorId')
     .then(articles => res.status(200).send({
       msg : 'find all data succeed',
       articles
     }))
     .catch(err => res.status(404).send(err))
-  }
+  },
 
-  static create (req, res) {
+  create (req, res) {
     let objArticleCreate = {
       title     : req.body.title,
       authorId  : req.headers.authorid,
@@ -32,9 +29,9 @@ module.exports = class ControllerArticle {
       articleCreated
     }))
     .catch(err => res.status(500).send(err))
-  }
+  },
 
-  static comment (req, res) {
+  comment (req, res) {
 
     console.log(req.body);
 
@@ -53,18 +50,18 @@ module.exports = class ControllerArticle {
       .catch(err => res.status(500).send(err))
     })
     .catch(err => res.status(404).send(err))
-  }
+  },
 
-  static destroy (req, res) {
+  destroy (req, res) {
     Article.remove({ '_id' : req.params.idArticle })
     .then(articleRemove => res.status(200).send({
       msg : 'remove article succeed',
       articleRemove
     }))
     .catch(err => res.status(500).send(err))
-  }
+  },
 
-  static editArticle (req, res) {
+  editArticle (req, res) {
 
     Article.find({ _id: req.body.id }, (err, data) => {
       data[0].title = req.body.title

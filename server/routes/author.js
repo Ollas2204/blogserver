@@ -1,11 +1,11 @@
 const express           = require('express')
 const router            = express.Router()
-const controllerAuthor  = require('../controllers/controllerAuthor')
+const { findAll, signUp, signIn, deleteAuthor }  = require('../controllers/controllerAuthor')
 const middleware = require('../middleware/authLogin');
 /* GET home page. */
-router.get('/', middleware.authLogin, controllerAuthor.findAll)
-router.post('/signin', controllerAuthor.signIn)
-router.post('/signup', controllerAuthor.signUp)
-router.delete('/:id/delete', middleware.authLogin, controllerAuthor.deleteAuthor)
+router.get('/', middleware.authLogin, findAll)
+router.post('/signin', signIn)
+router.post('/signup', signUp)
+router.delete('/:id/delete', middleware.authLogin, deleteAuthor)
 
 module.exports = router

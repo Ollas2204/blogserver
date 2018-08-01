@@ -5,21 +5,18 @@ const Article = require('../models/Article');
 
 require('dotenv').config()
 
-module.exports = class ControllerAuthor {
-  constructor() {
+module.exports = {
 
-  }
-
-  static findAll (req, res) {
+  findAll (req, res) {
     Author.find()
     .then(authors => res.status(200).send({
       msg : 'find all authors succeed',
       authors
     }))
     .catch(err => res.status(404).send(err))
-  }
+  },
 
-  static signUp (req, res) {
+  signUp (req, res) {
     let objAuthorCreate
     if (req.body.role) {
       objAuthorCreate = {
@@ -41,9 +38,9 @@ module.exports = class ControllerAuthor {
       authorCreated
     }))
     .catch(err => res.status(500).send(err))
-  }
+  },
 
-  static signIn (req, res) {
+  signIn (req, res) {
     Author.findOne({
       'email' : req.body.email
     })
@@ -78,9 +75,9 @@ module.exports = class ControllerAuthor {
       msg : 'Cannot get author',
       err
     }))
-  }
+  },
 
-  static deleteAuthor (req, res) {
+  deleteAuthor (req, res) {
     Author.remove({
       '_id' : req.params.id
     })
