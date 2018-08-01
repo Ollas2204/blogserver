@@ -6,7 +6,7 @@ const middleware = require('../middleware/authLogin');
 router.get('/', controllerArticle.findAll)
 router.post('/', middleware.authLogin, controllerArticle.create)
 router.put('/:idArticle/comment', middleware.authLogin, controllerArticle.comment)
-router.put('/:idArticle/edit', middleware.authLogin, controllerArticle.editArticle)
+router.put('/edit', controllerArticle.editArticle)
 router.delete('/:idArticle/delete', middleware.authLogin, controllerArticle.destroy)
 
 module.exports = router

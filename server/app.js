@@ -6,7 +6,9 @@ const bodyParser      = require('body-parser')
 const mongoose        = require('mongoose')
 const cors            = require('cors')
 
-mongoose.connect('mongodb://localhost/blog')
+mongoose.connect('mongodb://blog:asd123@ds163781.mlab.com:63781/blog', (err, response) => {
+  console.log('connect database');
+})
 // config[process.env.DB]
 const article = require('./routes/article')
 const author  = require('./routes/author')

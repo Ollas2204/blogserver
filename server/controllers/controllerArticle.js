@@ -35,6 +35,9 @@ module.exports = class ControllerArticle {
   }
 
   static comment (req, res) {
+
+    console.log(req.body);
+
     Article.findOne({ '_id' : req.params.idArticle })
     .then(article => {
       let objArticleComment = {
@@ -62,40 +65,13 @@ module.exports = class ControllerArticle {
   }
 
   static editArticle (req, res) {
-    if (!req.body.title || !req.body.content) {
-      return res.status(500).send({
-        msg: 'article harus diisi'
-      })
-    }
-    Article.findOne({
-      '_id': req.params.idArticle,
-      'authorId': req.headers.authorid
+
+    Article.find({ _id: req.body.id }, (err, data) => {
+      data[0].title = req.body.title
+      data[0].content = req.body.content
+      data[0].save()
+      res.status(201).json(data)
     })
-      .then(article => {
-        Article.update({
-          '_id': req.params.idArticle
-        }, {
-          'title': req.body.title,
-          'content': req.body.content
-        })
-          .then(editing => {
-            Article.findOne({
-              '_id': req.params.idArticle
-            })
-            .populate('authorId')
-              .then(articleEdit => {
-                console.log(articleEdit);
-                res.status(200).send({
-                  msg: 'edit article success',
-                  articleEdit
-                })
-              })
-              .catch(err => res.status(500).send(err))
-          })
-          .catch(err => res.status(500).send(err))
-      })
-      .catch(err => {
-        res.status(500).send(err)
-      })
+
   }
 }
