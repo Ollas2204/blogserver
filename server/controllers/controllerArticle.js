@@ -83,10 +83,13 @@ module.exports = class ControllerArticle {
               '_id': req.params.idArticle
             })
             .populate('authorId')
-              .then(articleEdit => res.status(200).send({
-                msg: 'edit article success',
-                articleEdit
-              }))
+              .then(articleEdit => {
+                console.log(articleEdit);
+                res.status(200).send({
+                  msg: 'edit article success',
+                  articleEdit
+                })
+              })
               .catch(err => res.status(500).send(err))
           })
           .catch(err => res.status(500).send(err))
