@@ -1,0 +1,6 @@
+{
+  "DB_USE" : {
+    "PRODUCTION" : "mongodb://localhost/blogs",
+    "TEST"       : "mongodb://localhost/blogs-test"
+  }
+}

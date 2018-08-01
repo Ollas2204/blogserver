@@ -1,2 +1,0 @@
-# blogserver
-blog server challenge

@@ -1,23 +1,33 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
+const Schema = require('mongoose').Schema
 
 var articleSchema = new Schema({
-  content : {
-    type: String,
-    required : true
-  },
-  title : {
+  title: {
     type : String,
     required : true
   },
-  author : {
+  authorId: {
+    type : Schema.Types.ObjectId, ref: 'Author',
+    required : true
+  },
+  content: {
     type : String,
     required : true
   },
-  timestamp : true
+  comments: [{
+    authorName : String,
+    body : {
+      type : String
+    },
+    date : {
+      type : Date,
+      default : Date.now
+    }
+  }],
+  likes: [{
+    authorId : { type : Schema.Types.ObjectId, ref: 'Author' }
+  }]
+}, {
+  timestamps : true
 })
 
-const articleSchema = mongoose.model('Article', articleSchema);
-
-module.exports = Articles
+module.exports = (require('mongoose')).model('Article', articleSchema)
